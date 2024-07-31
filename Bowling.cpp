@@ -73,12 +73,12 @@ void Bowling::calibration(int speed){
   bool flag = true;
   bool flag2 = false;
   while (flag){
-    if(!this->read_ir_leftfront())this->setMotoreSpeed(1,-abs(speed));
-    if(!this->read_ir_rightfront())this->setMotoreSpeed(2,abs(speed));
+    if(!this->read_ir_leftfront())this->setMotoreSpeed(1,-abs(speed));else this->setMotoreSpeed(1,0);
+    if(!this->read_ir_rightfront())this->setMotoreSpeed(2,abs(speed));else this->setMotoreSpeed(2,0);
     if (this->read_ir_leftfront() && this->read_ir_rightfront()) {flag = false;flag2 = true;this->setMotoreSpeed(1,0);this->setMotoreSpeed(2,0);}
-    //this->print(this->read_ir_leftfront());
-    //this->print(" ");
-    //this->println(this->read_ir_rightfront());
+    this->print(this->read_ir_leftfront());
+    this->print(" ");
+    this->println(this->read_ir_rightfront());
   }
   while (flag2){
     if(!this->read_ir_rightback()){this->setMotoreSpeed(3,-abs(speed));this->setMotoreSpeed(4,abs(speed));}
@@ -134,37 +134,37 @@ struct Position Bowling::position(int number,int multiplicand){
   switch(number){
     case 1:
       img.pos = 'A';
-      img.offset = multiplicand*7;
+      img.offset = multiplicand*6;
       break;
     case 2:
       img.pos = 'B';
-      img.offset = multiplicand*6;
+      img.offset = multiplicand*5;
       break;
     case 3:
       img.pos = 'C';
-      img.offset = multiplicand*5;
+      img.offset = multiplicand*4;
       break;
     case 4:
       img.pos = 'D';
-      img.offset = multiplicand*4;
+      img.offset = multiplicand*3;
       break;
     case 5:
       img.pos = 'E';
-      img.offset = multiplicand*3;
+      img.offset = multiplicand*2;
       break;
     case 6:
       img.pos = 'F';
-      img.offset = multiplicand*2;
+      img.offset = multiplicand*1;
       break;
     case 7:
       img.pos = 'G';
-      img.offset = multiplicand*1;
+      img.offset = multiplicand*0;
       break;
   }
   return img;
 }
 int Bowling::getImage(){
-  return 1;
+  return 7;
 }
 bool Bowling::isStrike(){
   return false;
